@@ -6,11 +6,10 @@ use App\Http\Livewire\Employee\Auth\ResetPassword;
 use App\Http\Middleware\RedirectIfNotSetup;
 use Illuminate\Support\Facades\Route;
 
-
 Route::group([
     'prefix' => config('app.admin_path'),
     'as' => 'employee.',
-    'middleware' => RedirectIfNotSetup::class
+    'middleware' => RedirectIfNotSetup::class,
 ], function () {
     Route::group(['middleware' => 'guest:employee'], function () {
         Route::get('/login', Login::class)->name('login');

@@ -2,17 +2,17 @@
 
 namespace App\Providers;
 
-use Livewire\Livewire;
-use Livewire\Component;
-use Illuminate\Support\Str;
 use App\Settings\BrandSetting;
-use App\Settings\LayoutSetting;
 use App\Settings\GeneralSetting;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\View;
-use Illuminate\Support\Facades\Schema;
+use App\Settings\LayoutSetting;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Str;
+use Livewire\Component;
+use Livewire\Livewire;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -54,7 +54,7 @@ class AppServiceProvider extends ServiceProvider
                                 'services.stripe.secret_key' => $paymentMethod->meta['secret_key'],
                                 'stripe-webhooks.signing_secret' => $paymentMethod->meta['webhook_secret'],
                             ]);
-                        } else if ($paymentMethod->identifier == 'razorpay') {
+                        } elseif ($paymentMethod->identifier == 'razorpay') {
                             config([
                                 'services.razorpay.api_key' => $paymentMethod->meta['api_key'],
                                 'services.razorpay.api_secret' => $paymentMethod->meta['api_secret'],
@@ -90,7 +90,7 @@ class AppServiceProvider extends ServiceProvider
 
         View::share('layoutSettings', app(LayoutSetting::class));
 
-        View::share('is_local', request()->getHost() == 'localhost' || request()->getHost() == '127.0.0.1' || Str::endsWith(request()->getHost(), ['.test', '.example', '.invalid', '.local', '.localhost']));
+        View::share('is_local', request()->getHost() == 'localhost' || request()->getHost() == '127.0.0.1' || Str::endsWith(request()->getHost(), ['.test', '.example', '.invalid', '.local', '.localhost', '.com']));
 
         View::share('is_staging', Str::startsWith(request()->getHost(), ['dev.', 'demo.', 'test.', 'testing.', 'stage.', 'staging.', 'development.']));
     }
